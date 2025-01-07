@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriverJack</title>
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        
+        body {
+            font-family: 'Abel', sans-serif;
+            color: #ccc;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+
+     
+        nav {
+            background-color: #1a1a1a;
+            padding: 10px 0;
+            border-radius: 0 0 15px 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #195488;
+        }
+
+    
+        header {
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 60px 20px;
+            color: hsl(214, 74%, 61%);
+            animation: fadeIn 1s ease-in-out;
+            border-radius: 5%;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        
+        main {
+            padding: 70px 20px;
+            margin-top: 100px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        .project-card, .hobbies-content {
+            background-color: #1a1a1a;
+            color: #ccc;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 2px solid #444;
+            cursor: pointer;
+        }
+
+        .project-card:hover, .hobbies-content:hover {
+            transform: translateY(-19px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #1a1a1a;
+            color: #ccc;
+            margin-top: 50px;
+            border-radius: 15px 15px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#welcome">Welcome</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+        </ul>
+    </nav>
+    <header id="welcome">
+        <h1>DriverJack</h1>
+        <p>I am a pirate.</p>
+    </header>
+    
+    <center>
+    <img id="creep" onload="creepMeOut()" style="opacity: 1;" src="https://null65.github.io/driverjackOLD//img/Scary%20emoji.png">
+ </center>
+<main>
+    <p>
+        Hi, I'm DriverJack. I'm passionate about tech, especially Arduino, ethical hacking, and amateur radio. 
+        I love tinkering with Arduino projects and seeing what cool things I can create. 
+        Ethical hacking fascinates me because I enjoy learning about cybersecurity and helping make the digital world safer. 
+        When I'm not doing that, I'm probably experimenting with amateur radio, connecting with people, and exploring radio communications. 
+        Stick around to see more projects!
+    </p>
+    <br>
+    <br>
+        <section id="projects">
+            <h1>Projects</h1>
+            <a href="comingsoon.html">
+                <div class="project-card">
+                    <h2>ESP32 WIFI DEAUTHER</h2>
+                    <p>I have built many things using ESP32 & ESP 8266. &nbsp; Have a look at this page to build your own!</p>
+                </div>
+            </a>
+            <a href="comingsoon.html">
+                <div class="project-card">
+                    <h2>Coming Soon</h2>
+                    <p>This Project will arrive in:&nbsp; EARLY MARCH</p>
+                </div>
+            </a>
+        </section>
+        <section id="hobbies">
+            <h1>Hobbies</h1>
+            <a href="hobbies.html">
+                <div class="hobbies-content">
+                    <h2>My Favorite Hobbies</h2>
+                    <ul>
+                        <li>Arduino</li>
+                        <li>Amateur Radio</li>
+                        <li>Club Shooting</li>
+                        <li>Coding</li>
+                        <li>Cooking</li>
+                    </ul>
+                </div>
+            </a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 DriverJack. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+      var opacity = 0;
+  function fadeIn() {
+    if (opacity <= 1) {
+      opacity += 0.001;
+    }
+    document.getElementById('creep').style.opacity = opacity;
+  }
+  function creepMeOut() {
+    setInterval(fadeIn, 95);
+  }
+</script>
+</html>
