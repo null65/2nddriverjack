@@ -34,6 +34,12 @@
         }
         .question {
             margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .question p {
+            margin-top: 0;
+            font-weight: bold;
         }
         .options label {
             display: block;
@@ -58,6 +64,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
+            margin-top: 10px;
         }
         #start-button:hover, #submit-button:hover {
             background-color: #218838;
@@ -69,6 +76,14 @@
         .pass {
             color: green;
             font-size: 2em;
+        }
+        .correct-answer {
+            color: green;
+            font-weight: normal;
+        }
+        .incorrect-answer {
+            color: red;
+            font-weight: normal;
         }
     </style>
 </head>
@@ -84,8 +99,8 @@
         <div id="exam-questions" style="display: none;">
             <form id="exam-form">
             </form>
+            <button id="submit-button" onclick="endExam()" style="display: none;">Submit Exam</button>
         </div>
-        <button id="submit-button" onclick="endExam()" style="display: none;">Submit Exam</button>
         <div id="results" style="display: none;"></div>
     </div>
     <script>
@@ -113,77 +128,78 @@
             { question: "What is the definition of 'gain' in an antenna?", options: ["Power output", "Signal strength increase", "Frequency range", "Impedance"], answer: "Signal strength increase" },
             { question: "What is the function of a quarter-wave vertical antenna?", options: ["Omnidirectional radiation", "Directional radiation", "To increase power", "To reduce noise"], answer: "Omnidirectional radiation" },
             { question: "What is the purpose of a directional coupler?", options: ["To increase power", "To measure forward and reflected power", "To reduce interference", "To improve audio quality"], answer: "To measure forward and reflected power" },
-{ question: "What is the function of a mixer in a receiver?", options: ["To increase power", "To convert frequencies", "To reduce noise", "To improve audio quality"], answer: "To convert frequencies" },
-{ question: "What is the purpose of a crystal oscillator?", options: ["To increase power", "To generate stable frequencies", "To reduce interference", "To improve audio quality"], answer: "To generate stable frequencies" },
-{ question: "What does the term 'QSY' mean?", options: ["Change frequency", "Stop transmitting", "Increase power", "Reduce power"], answer: "Change frequency" },
-{ question: "What is the function of an RF amplifier?", options: ["To increase power", "To amplify radio frequency signals", "To reduce noise", "To improve audio quality"], answer: "To amplify radio frequency signals" },
-{ question: "What is the purpose of a variable capacitor?", options: ["To increase power", "To adjust tuning", "To reduce interference", "To improve audio quality"], answer: "To adjust tuning" },
-{ question: "What does the term 'QTH' mean?", options: ["Location", "Signal strength", "Frequency", "Power"], answer: "Location" },
-{ question: "What is the function of a power supply in a radio?", options: ["To increase power", "To provide electrical power", "To reduce interference", "To improve audio quality"], answer: "To provide electrical power" },
-{ question: "What is the purpose of an AGC (Automatic Gain Control) circuit?", options: ["To increase power", "To maintain constant audio level", "To reduce interference", "To improve audio quality"], answer: "To maintain constant audio level" },
-{ question: "What does the term 'QSL' mean?", options: ["Confirm receipt", "Stop transmitting", "Increase power", "Reduce power"], answer: "Confirm receipt" },
-{ question: "What is the function of a frequency counter?", options: ["To measure power", "To measure frequency", "To reduce noise", "To improve audio quality"], answer: "To measure frequency" },
-{ question: "What is the purpose of a harmonic filter?", options: ["To increase power", "To suppress harmonics", "To reduce interference", "To improve audio quality"], answer: "To suppress harmonics" },
-{ question: "What does the term 'QRP' mean?", options: ["Low power operation", "High power operation", "Change frequency", "Stop transmitting"], answer: "Low power operation" },
-{ question: "What is the function of an SWR bridge?", options: ["To measure power", "To measure impedance mismatch", "To reduce noise", "To improve audio quality"], answer: "To measure impedance mismatch" },
-{ question: "What is the purpose of a signal generator?", options: ["To increase power", "To generate test signals", "To reduce interference", "To improve audio quality"], answer: "To generate test signals" },
-{ question: "What does the term 'QRX' mean?", options: ["Stand by", "Stop transmitting", "Increase power", "Reduce power"], answer: "Stand by" },
-{ question: "What is the function of a dummy load?", options: ["To increase power", "To simulate an antenna", "To reduce noise", "To improve audio quality"], answer: "To simulate an antenna" },
-{ question: "What is the purpose of a phase-locked loop (PLL)?", options: ["To increase power", "To stabilize frequency", "To reduce interference", "To improve audio quality"], answer: "To stabilize frequency" },
-{ question: "What does the term 'QRT' mean?", options: ["Stop transmitting", "Change frequency", "Increase power", "Reduce power"], answer: "Stop transmitting" },
-{ question: "What is the function of a VFO (Variable Frequency Oscillator)?", options: ["To increase power", "To vary operating frequency", "To reduce noise", "To improve audio quality"], answer: "To vary operating frequency" },
-{ question: "What is the purpose of a spectrum analyzer?", options: ["To increase power", "To analyze signal frequency components", "To reduce interference", "To improve audio quality"], answer: "To analyze signal frequency components" },
-{ question: "What does the term 'QRZ' mean?", options: ["Who is calling me?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Who is calling me?" },
-{ question: "What is the function of a preselector?", options: ["To increase power", "To select desired signals", "To reduce noise", "To improve audio quality"], answer: "To select desired signals" },
-{ question: "What is the purpose of an attenuator?", options: ["To increase power", "To reduce signal strength", "To reduce interference", "To improve audio quality"], answer: "To reduce signal strength" },
-{ question: "What does the term 'QSB' mean?", options: ["Signal fading", "Stop transmitting", "Increase power", "Reduce power"], answer: "Signal fading" },
-{ question: "What is the function of a frequency synthesizer?", options: ["To increase power", "To generate precise frequencies", "To reduce noise", "To improve audio quality"], answer: "To generate precise frequencies" },
-{ question: "What is the purpose of a noise blanker?", options: ["To increase power", "To reduce noise", "To reduce interference", "To improve audio quality"], answer: "To reduce noise" },
-{ question: "What does the term 'QRV' mean?", options: ["Are you ready?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Are you ready?" },
-{ question: "What is the function of a balanced modulator?", options: ["To increase power", "To generate double sideband suppressed carrier signals", "To reduce noise", "To improve audio quality"], answer: "To generate double sideband suppressed carrier signals" },
-{ question: "What is the purpose of a band-stop filter?", options: ["To increase power", "To block a specific range of frequencies", "To reduce interference", "To improve audio quality"], answer: "To block a specific range of frequencies" },
-{ question: "What does the term 'QRR' mean?", options: ["Send more slowly", "Stop transmitting", "Increase power", "Reduce power"], answer: "Send more slowly" },
-{ question: "What is the function of a regenerative receiver?", options: ["To increase power", "To amplify weak signals", "To reduce noise", "To improve audio quality"], answer: "To amplify weak signals" },
-{ question: "What is the purpose of a signal tracer?", options: ["To increase power", "To trace signal paths", "To reduce interference", "To improve audio quality"], answer: "To trace signal paths" },
-{ question: "What does the term 'QRL' mean?", options: ["Frequency is busy", "Stop transmitting", "Increase power", "Reduce power"], answer: "Frequency is busy" },
-{ question: "What is the function of a superheterodyne receiver?", options: ["To increase power", "To convert frequencies for easier processing", "To reduce noise", "To improve audio quality"], answer: "To convert frequencies for easier processing" },
-{ question: "What is the purpose of a grid dip oscillator?", options: ["To increase power", "To measure resonant frequency", "To reduce interference", "To improve audio quality"], answer: "To measure resonant frequency" },
-{ question: "What does the term 'QRD' mean?", options: ["Where are you bound?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Where are you bound?" },
-{ question: "What is the function of a frequency discriminator?", options: ["To increase power", "To detect frequency variations", "To reduce noise", "To improve audio quality"], answer: "To detect frequency variations" },
-{ question: "What is the purpose of an impedance bridge?", options: ["To increase power", "To measure impedance", "To reduce interference", "To improve audio quality"], answer: "To measure impedance" },
-{ question: "What does the term 'QRI' mean?", options: ["How is the tone?", "Stop transmitting", "Increase power", "Reduce power"], answer: "How is the tone?" },
-{ question: "What is the function of a heterodyne oscillator?", options: ["To increase power", "To generate a mixing frequency", "To reduce noise", "To improve audio quality"], answer: "To generate a mixing frequency" },
-{ question: "What is the purpose of a digital signal processor (DSP)?", options: ["To increase power", "To process digital signals", "To reduce interference", "To improve audio quality"], answer: "To process digital signals" },
-{ question: "What does the term 'QRG' mean?", options: ["What's my exact frequency?", "Stop transmitting", "Increase power", "Reduce power"], answer: "What's my exact frequency?" },
-{ question: "What is the function of a phase comparator?", options: ["To increase power", "To compare phases of two signals", "To reduce noise", "To improve audio quality"], answer: "To compare phases of two signals" },
-{ question: "What is the purpose of an isolation transformer?", options: ["To increase power", "To isolate circuits", "To reduce interference", "To improve audio quality"], answer: "To isolate circuits" },
-{ question: "What does the term 'QRH' mean?", options: ["Does my frequency vary?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Does my frequency vary?" },
-{ question: "What is the function of a quadrature detector?", options: ["To increase power", "To detect phase shift keying signals", "To reduce noise", "To improve audio quality"], answer: "To detect phase shift keying signals" },
-{ question: "What is the purpose of a balun transformer?", options: ["To increase power", "To convert balanced to unbalanced signals", "To reduce interference", "To improve audio quality"], answer: "To convert balanced to unbalanced signals" },
-{ question: "What does the term 'QRO' mean?", options: ["Increase power", "Stop transmitting", "Change frequency", "Reduce power"], answer: "Increase power" },
-{ question: "What is the function of a PIN diode?", options: ["To increase power", "To switch RF signals", "To reduce noise", "To improve audio quality"], answer: "To switch RF signals" },
-{ question: "What is the purpose of a directional antenna?", options: ["To increase power", "To focus signals in a specific direction", "To reduce interference", "To improve audio quality"], answer: "To focus signals in a specific direction" },
-{ question: "What does the term 'QRPp' mean?", options: ["Very low power operation", "High power operation", "Change frequency", "Stop transmitting"], answer: "Very low power operation" },
-{ question: "What is the function of a phase modulator?", options: ["To increase power", "To vary the phase of a signal", "To reduce noise", "To improve audio quality"], answer: "To vary the phase of a signal" },
-{ question: "What is the purpose of a waveguide?", options: ["To increase power", "To guide electromagnetic waves", "To reduce interference", "To improve audio quality"], answer: "To guide electromagnetic waves" },
-{ question: "What does the term 'QRS' mean?", options: ["Send more slowly", "Stop transmitting", "Increase power", "Reduce power"], answer: "Send more slowly" }
+            { question: "What is the function of a mixer in a receiver?", options: ["To increase power", "To convert frequencies", "To reduce noise", "To improve audio quality"], answer: "To convert frequencies" },
+            { question: "What is the purpose of a crystal oscillator?", options: ["To increase power", "To generate stable frequencies", "To reduce interference", "To improve audio quality"], answer: "To generate stable frequencies" },
+            { question: "What does the term 'QSY' mean?", options: ["Change frequency", "Stop transmitting", "Increase power", "Reduce power"], answer: "Change frequency" },
+            { question: "What is the function of an RF amplifier?", options: ["To increase power", "To amplify radio frequency signals", "To reduce noise", "To improve audio quality"], answer: "To amplify radio frequency signals" },
+            { question: "What is the purpose of a variable capacitor?", options: ["To increase power", "To adjust tuning", "To reduce interference", "To improve audio quality"], answer: "To adjust tuning" },
+            { question: "What does the term 'QTH' mean?", options: ["Location", "Signal strength", "Frequency", "Power"], answer: "Location" },
+            { question: "What is the function of a power supply in a radio?", options: ["To increase power", "To provide electrical power", "To reduce interference", "To improve audio quality"], answer: "To provide electrical power" },
+            { question: "What is the purpose of an AGC (Automatic Gain Control) circuit?", options: ["To increase power", "To maintain constant audio level", "To reduce interference", "To improve audio quality"], answer: "To maintain constant audio level" },
+            { question: "What does the term 'QSL' mean?", options: ["Confirm receipt", "Stop transmitting", "Increase power", "Reduce power"], answer: "Confirm receipt" },
+            { question: "What is the function of a frequency counter?", options: ["To measure power", "To measure frequency", "To reduce noise", "To improve audio quality"], answer: "To measure frequency" },
+            { question: "What is the purpose of a harmonic filter?", options: ["To increase power", "To suppress harmonics", "To reduce interference", "To improve audio quality"], answer: "To suppress harmonics" },
+            { question: "What does the term 'QRP' mean?", options: ["Low power operation", "High power operation", "Change frequency", "Stop transmitting"], answer: "Low power operation" },
+            { question: "What is the function of an SWR bridge?", options: ["To measure power", "To measure impedance mismatch", "To reduce noise", "To improve audio quality"], answer: "To measure impedance mismatch" },
+            { question: "What is the purpose of a signal generator?", options: ["To increase power", "To generate test signals", "To reduce interference", "To improve audio quality"], answer: "To generate test signals" },
+            { question: "What does the term 'QRX' mean?", options: ["Stand by", "Stop transmitting", "Increase power", "Reduce power"], answer: "Stand by" },
+            { question: "What is the function of a dummy load?", options: ["To increase power", "To simulate an antenna", "To reduce noise", "To improve audio quality"], answer: "To simulate an antenna" },
+            { question: "What is the purpose of a phase-locked loop (PLL)?", options: ["To increase power", "To stabilize frequency", "To reduce interference", "To improve audio quality"], answer: "To stabilize frequency" },
+            { question: "What does the term 'QRT' mean?", options: ["Stop transmitting", "Change frequency", "Increase power", "Reduce power"], answer: "Stop transmitting" },
+            { question: "What is the function of a VFO (Variable Frequency Oscillator)?", options: ["To increase power", "To vary operating frequency", "To reduce noise", "To improve audio quality"], answer: "To vary operating frequency" },
+            { question: "What is the purpose of a spectrum analyzer?", options: ["To increase power", "To analyze signal frequency components", "To reduce interference", "To improve audio quality"], answer: "To analyze signal frequency components" },
+            { question: "What does the term 'QRZ' mean?", options: ["Who is calling me?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Who is calling me?" },
+            { question: "What is the function of a preselector?", options: ["To increase power", "To select desired signals", "To reduce noise", "To improve audio quality"], answer: "To select desired signals" },
+            { question: "What is the purpose of an attenuator?", options: ["To increase power", "To reduce signal strength", "To reduce interference", "To improve audio quality"], answer: "To reduce signal strength" },
+            { question: "What does the term 'QSB' mean?", options: ["Signal fading", "Stop transmitting", "Increase power", "Reduce power"], answer: "Signal fading" },
+            { question: "What is the function of a frequency synthesizer?", options: ["To increase power", "To generate precise frequencies", "To reduce noise", "To improve audio quality"], answer: "To generate precise frequencies" },
+            { question: "What is the purpose of a noise blanker?", options: ["To increase power", "To reduce noise", "To reduce interference", "To improve audio quality"], answer: "To reduce noise" },
+            { question: "What does the term 'QRV' mean?", options: ["Are you ready?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Are you ready?" },
+            { question: "What is the function of a balanced modulator?", options: ["To increase power", "To generate double sideband suppressed carrier signals", "To reduce noise", "To improve audio quality"], answer: "To generate double sideband suppressed carrier signals" },
+            { question: "What is the purpose of a band-stop filter?", options: ["To increase power", "To block a specific range of frequencies", "To reduce interference", "To improve audio quality"], answer: "To block a specific range of frequencies" },
+            { question: "What does the term 'QRR' mean?", options: ["Send more slowly", "Stop transmitting", "Increase power", "Reduce power"], answer: "Send more slowly" },
+            { question: "What is the function of a regenerative receiver?", options: ["To increase power", "To amplify weak signals", "To reduce noise", "To improve audio quality"], answer: "To amplify weak signals" },
+            { question: "What is the purpose of a signal tracer?", options: ["To increase power", "To trace signal paths", "To reduce interference", "To improve audio quality"], answer: "To trace signal paths" },
+            { question: "What does the term 'QRL' mean?", options: ["Frequency is busy", "Stop transmitting", "Increase power", "Reduce power"], answer: "Frequency is busy" },
+            { question: "What is the function of a superheterodyne receiver?", options: ["To increase power", "To convert frequencies for easier processing", "To reduce noise", "To improve audio quality"], answer: "To convert frequencies for easier processing" },
+            { question: "What is the purpose of a grid dip oscillator?", options: ["To increase power", "To measure resonant frequency", "To reduce interference", "To improve audio quality"], answer: "To measure resonant frequency" },
+            { question: "What does the term 'QRD' mean?", options: ["Where are you bound?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Where are you bound?" },
+            { question: "What is the function of a frequency discriminator?", options: ["To increase power", "To detect frequency variations", "To reduce noise", "To improve audio quality"], answer: "To detect frequency variations" },
+            { question: "What is the purpose of an impedance bridge?", options: ["To increase power", "To measure impedance", "To reduce interference", "To improve audio quality"], answer: "To measure impedance" },
+            { question: "What does the term 'QRI' mean?", options: ["How is the tone?", "Stop transmitting", "Increase power", "Reduce power"], answer: "How is the tone?" },
+            { question: "What is the function of a heterodyne oscillator?", options: ["To increase power", "To generate a mixing frequency", "To reduce noise", "To improve audio quality"], answer: "To generate a mixing frequency" },
+            { question: "What is the purpose of a digital signal processor (DSP)?", options: ["To increase power", "To process digital signals", "To reduce interference", "To improve audio quality"], answer: "To process digital signals" },
+            { question: "What does the term 'QRG' mean?", options: ["What's my exact frequency?", "Stop transmitting", "Increase power", "Reduce power"], answer: "What's my exact frequency?" },
+            { question: "What is the function of a phase comparator?", options: ["To increase power", "To compare phases of two signals", "To reduce noise", "To improve audio quality"], answer: "To compare phases of two signals" },
+            { question: "What is the purpose of an isolation transformer?", options: ["To increase power", "To isolate circuits", "To reduce interference", "To improve audio quality"], answer: "To isolate circuits" },
+            { question: "What does the term 'QRH' mean?", options: ["Does my frequency vary?", "Stop transmitting", "Increase power", "Reduce power"], answer: "Does my frequency vary?" },
+            { question: "What is the function of a quadrature detector?", options: ["To increase power", "To detect phase shift keying signals", "To reduce noise", "To improve audio quality"], answer: "To detect phase shift keying signals" },
+            { question: "What is the purpose of a balun transformer?", options: ["To increase power", "To convert balanced to unbalanced signals", "To reduce interference", "To improve audio quality"], answer: "To convert balanced to unbalanced signals" },
+            { question: "What does the term 'QRO' mean?", options: ["Increase power", "Stop transmitting", "Change frequency", "Reduce power"], answer: "Increase power" },
+            { question: "What is the function of a PIN diode?", options: ["To increase power", "To switch RF signals", "To reduce noise", "To improve audio quality"], answer: "To switch RF signals" },
+            { question: "What is the purpose of a directional antenna?", options: ["To increase power", "To focus signals in a specific direction", "To reduce interference", "To improve audio quality"], answer: "To focus signals in a specific direction" },
+            { question: "What does the term 'QRPp' mean?", options: ["Very low power operation", "High power operation", "Change frequency", "Stop transmitting"], answer: "Very low power operation" },
+            { question: "What is the function of a phase modulator?", options: ["To increase power", "To vary the phase of a signal", "To reduce noise", "To improve audio quality"], answer: "To vary the phase of a signal" },
+            { question: "What is the purpose of a waveguide?", options: ["To increase power", "To guide electromagnetic waves", "To reduce interference", "To improve audio quality"], answer: "To guide electromagnetic waves" },
+            { question: "What does the term 'QRS' mean?", options: ["Send more slowly", "Stop transmitting", "Increase power", "Reduce power"], answer: "Send more slowly" }
             // Add more questions here to reach at least 200 different questions
         ];
-
-        // Function to get random questions
-        function getRandomQuestions(num) {
-            let shuffled = questionBank.sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, num);
-        }
 
         let timeLeft = 90 * 60; // 90 minutes in seconds
         let timerInterval;
         let userAnswers = {}; // Store user answers
+        let questions; // Store the selected questions for the current exam
+
+        function getRandomQuestions(num) {
+            let shuffled = [...questionBank].sort(() => 0.5 - Math.random()); // Create a copy to avoid modifying the original
+            return shuffled.slice(0, num);
+        }
 
         function startExam() {
             document.getElementById('start-button').style.display = 'none';
             document.getElementById('exam-questions').style.display = 'block';
             document.getElementById('submit-button').style.display = 'block';
+            questions = getRandomQuestions(46); // Load 46 random questions for the exam
             displayQuestions();
             startTimer();
         }
@@ -191,13 +207,15 @@
         function displayQuestions() {
             let examForm = document.getElementById('exam-form');
             examForm.innerHTML = ''; // Clear previous content
-            let questions = getRandomQuestions(20); // Load 20 random questions
+
             questions.forEach((question, index) => {
                 let questionDiv = document.createElement('div');
                 questionDiv.className = 'question';
-                questionDiv.innerHTML = `<p>${question.question}</p>`;
+                questionDiv.innerHTML = `<p>Question ${index + 1}: ${question.question}</p>`; // Added question number
+
                 let optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
+
                 question.options.forEach(option => {
                     let label = document.createElement('label');
                     label.innerHTML = `
@@ -206,6 +224,7 @@
                     `;
                     optionsDiv.appendChild(label);
                 });
+
                 questionDiv.appendChild(optionsDiv);
                 examForm.appendChild(questionDiv);
             });
@@ -216,7 +235,7 @@
                 timeLeft--;
                 let minutes = Math.floor(timeLeft / 60);
                 let seconds = timeLeft % 60;
-                document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`; // Added leading zero for seconds
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     endExam();
@@ -228,6 +247,8 @@
             clearInterval(timerInterval);
             let examForm = document.getElementById('exam-form');
             let formData = new FormData(examForm);
+            userAnswers = {}; // Reset user answers for each submission (though not really used now)
+
             questions.forEach((question, index) => {
                 userAnswers[index] = formData.get(`question${index}`);
             });
@@ -236,20 +257,43 @@
 
         function displayResults() {
             let correctAnswers = 0;
+            let resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>Exam Results</h2>';
+            resultsDiv.style.display = 'block';
+
             questions.forEach((question, index) => {
-                if (userAnswers[index] === question.answer) {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.answer;
+                const questionNumber = index + 1;
+
+                const questionResultDiv = document.createElement('div');
+                questionResultDiv.className = 'question-result';
+                questionResultDiv.innerHTML = `<p><strong>Question ${questionNumber}:</strong> ${question.question}</p>`;
+
+                if (userAnswer) {
+                    questionResultDiv.innerHTML += `<p>Your answer: <span class="${isCorrect ? 'correct-answer' : 'incorrect-answer'}">${userAnswer}</span></p>`;
+                } else {
+                    questionResultDiv.innerHTML += `<p>You did not answer this question.</p>`;
+                }
+
+                questionResultDiv.innerHTML += `<p>Correct answer: <span class="correct-answer">${question.answer}</span></p>`;
+                resultsDiv.appendChild(questionResultDiv);
+
+                if (isCorrect) {
                     correctAnswers++;
                 }
             });
-            let resultsDiv = document.getElementById('results');
-            resultsDiv.style.display = 'block';
+
             let score = (correctAnswers / questions.length) * 100;
-            resultsDiv.innerHTML = `Your score: ${score}%<br>`;
+            const finalResultDiv = document.createElement('div');
+            finalResultDiv.innerHTML = `<h3>Your final score: ${score.toFixed(2)}%</h3>`; // Display score with 2 decimal places
             if (score >= 70) {
-                resultsDiv.innerHTML += `<span class="pass">Pass</span>`;
+                finalResultDiv.innerHTML += `<p class="pass">Pass</p>`;
             } else {
-                resultsDiv.innerHTML += `<span class="fail">Fail</span>`;
+                finalResultDiv.innerHTML += `<p class="fail">Fail</p>`;
             }
+            resultsDiv.appendChild(finalResultDiv);
+
             document.getElementById('submit-button').style.display = 'none';
         }
     </script>
